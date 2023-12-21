@@ -7,5 +7,5 @@ do
   then 	  
       echo $m >> /home/user/test
    #   echo "123" | sudo -s kubectl apply -f $manifests
-  #fi
+  fi
 done
