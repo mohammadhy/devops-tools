@@ -1,5 +1,5 @@
 #! /bin/bash
-echo "welcome"
+echo "welcome" > /home/user/test
 for manifest in $(ls)
 do
   if [[ $manifest == *.yaml ]]
