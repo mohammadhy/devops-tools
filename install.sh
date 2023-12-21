@@ -1,6 +1,7 @@
 #! /bin/bash
 #echo "welcome" > /home/user/test
 echo $(ls manifest/)
+cd manifest
 for m in $(ls manifest/)
 do
 echo $m >> /home/user/example
