@@ -1,7 +1,7 @@
 #! /bin/bash
 echo "welcome" > /home/user/test
 echo $(ls manifest/)
-for manifests in $(ls manifest/)
+for manifests in $(ls /home/user/manifest)
 do
   if [[ $manifests == *.yaml ]]
   then 	  
