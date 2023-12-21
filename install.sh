@@ -9,7 +9,7 @@ echo $m >> /home/user/example
   if [[ $m == *.yaml ]]
   then 	  
       echo $m >> /home/user/test
-      echo `kubectl apply -f /manifest/$m`
+      echo `kubectl apply -f /home/user/manifest/$m`
       #echo "done:" $m 
   fi
 done
