@@ -1,4 +1,5 @@
-#!/bin/bash
+#! /bin/bash
+echo "welcome"
 for manifest in $(ls)
 do
   if [[ $manifest == *.yaml ]]
