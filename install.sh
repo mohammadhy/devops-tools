@@ -7,6 +7,6 @@ echo $m >> /home/user/example
   if [[ $m == *.yaml ]]
   then 	  
       echo $m >> /home/user/test
-   #   echo "123" | sudo -s kubectl apply -f $manifests
+      echo "123" | sudo -s kubectl apply -f $m
   fi
 done
