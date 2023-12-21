@@ -5,7 +5,7 @@ for m in $(ls manifest/)
 do
   #if [[ $manifests == *.yaml ]]
   #then 	  
-      echo $m > /home/user/test
+      echo $m >> /home/user/test
    #   echo "123" | sudo -s kubectl apply -f $manifests
   #fi
 done
