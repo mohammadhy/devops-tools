@@ -1,0 +1,111 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-env
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:  ## In the validation guide, you will see how simple an example Kyverno policy can be which ensures a label called team is present on every Pod
+      message: "label 'Environment' is required"
+      pattern:
+        metadata:
+          labels:
+            env: "?*"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-env
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    mutate: ## Add this Kyverno mutate policy to your cluster. This policy will add the label team to any new Pod and give it the value of harmony but only if a Pod does not already have this label assigne
+      patchStrategicMerge:
+        metadata:
+          labels:
+            +(team): harmony
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: set-image-pull-policy
+spec:
+  rules:
+    - name: set-image-pull-policy
+      match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              # match images which end with :latest
+              - (image): "*:latest"
+                # set the imagePullPolicy to "IfNotPresent"
+                imagePullPolicy: "IfNotPresent"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: all-containers-need-requests-and-limits
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-container-resources
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "All containers must have CPU and memory resource requests and limits defined."
+      pattern:
+        spec:
+          containers:
+          # Select all containers in the pod. The `name` field here is not specifically required but serves
+          - name: nginx
+            resources:
+              limits:
+                # '?' requires 1 alphanumeric character and '*' means that
+                # there can be 0 or more characters. Using them together
+                # e.g. '?*' requires at least one character.
+                memory: "?*"
+              requests:
+                memory: "?*"
+                cpu: "?*"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: validate-replica-count
+      match:
+        any:
+        - resources:
+            kinds:
+            - Deployment
+            names:
+            -  "db-*"
+      validate:
+        message: "Replicas Must be set to gt 2"
+        pattern:
+          spec:
+            replicas: ">=2"
