@@ -1,5 +1,5 @@
 #! /bin/bash
-cd manifest
+cd /tmp/manifest
 for m in $(ls)
 do
   echo $m
