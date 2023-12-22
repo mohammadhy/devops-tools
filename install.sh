@@ -9,7 +9,7 @@ do
   if [[ $m == *.yaml ]]
   then
       echo "/home/user/manifest/"$m >> /home/user/test
-      path=$(echo "/home/user/manifest/"$m)
+      path=$(echo `pwd`$m)
       kubectl apply -f $path
   fi
 done
