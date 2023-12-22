@@ -30,7 +30,7 @@ kind: StatefulSet
 metadata:
   name: mysql-statefulset
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
