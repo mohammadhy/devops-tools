@@ -25,7 +25,12 @@ spec:
           - containerPort: 5601
           env:
           - name: ELASTICSEARCH_URL
-            value: "http://elasticsearch:9200"
+            value: "http://elasticsearch:9200"          
+          - name: ELASTICSEARCH_USERNAME
+            value: "elastic"
+          - name: ELASTICSEARCH_PASSWORD
+            value: "elasticuser"
+      
 ---
 apiVersion: v1
 kind: Service
@@ -39,3 +44,4 @@ spec:
   ports:
     - port: 5601
       targetPort: 5601
+      nodePort: 30560
