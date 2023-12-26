@@ -1,0 +1,47 @@
+kind: Deployment
+metadata:
+  name: cadviser
+spec:
+  selector:
+    matchLabels:
+      app: cadviser
+  template:
+    metadata:
+      labels:
+        app: cadviser
+    spec:
+      nodeName: workstation
+      containers:
+      - name: cadviser
+        image: cadvisor
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: docker
+          mountPath: /var/lib/docker
+          readOnly: true
+        - name: run
+          mountPath: /var/run/
+
+      volumes:
+      - name: docker
+        hostPath:
+          path: /var/lib/docker
+      - name: run
+        hostPath:
+          path: /var/run/
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-cadviser
+spec:
+  type: NodePort
+  selector:
+    app: cadviser
+  ports:
+  - name: cad-port
+    port: 8080
+    targetPort: 8080
