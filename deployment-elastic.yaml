@@ -31,11 +31,15 @@ spec:
           - name: discovery.type
             value: "single-node"
           - name: xpack.security.enabled
-            value: "false"
+            value: "true"
           - name: ES_JAVA_OPTS
             value: "-Xms512m -Xmx512m"
           - name: ELASTICSEARCH_URL
             value: "http://elasticsearch:9200"
+          - name: ELASTIC_USERNAME
+            value: "elastic"
+          - name: ELASTIC_PASSWORD
+            value: "elasticuser"
 
 ---
 apiVersion: v1
@@ -51,3 +55,4 @@ spec:
     - name: http
       port: 9200
       targetPort: 9200
+      nodePort: 30920
