@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      nodeName: workstation
+      containers:
+      - name: prometheus
+        image: docker.arvancloud.ir/prom/prometheus
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: config
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: "prometheus.yml"
+      volumes:
+      - name: config
+        configMap:
+          name: configmap-prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-prometheus
+spec:
+  type: NodePort
+  selector:
+    app: prometheus
+  ports:
+  - name: prom-port
+    port: 9090
+    nodePort: 30909
