@@ -14,7 +14,7 @@ spec:
       nodeName: workstation
       containers:
       - name: cadviser
-        image: cadvisor
+        image: gcr.io/cadvisor/cadvisor:latest
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -53,3 +53,4 @@ spec:
   - name: cad-port
     port: 8080
     targetPort: 8080
+    nodePort: 30800
