@@ -1,13 +1,7 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: stack-elk
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana-deployment
-  namespace: stack-elk
 spec:
   replicas: 1
   selector:
@@ -20,23 +14,19 @@ spec:
     spec:
       containers:
         - name: kibana
-          image: bitnami/kibana:7.9.1
+          image: docker.elastic.co/kibana/kibana:8.11.3
           ports:
           - containerPort: 5601
           env:
           - name: ELASTICSEARCH_URL
             value: "http://elasticsearch:9200"          
           - name: ELASTICSEARCH_USERNAME
-            value: "elastic"
-          - name: ELASTICSEARCH_PASSWORD
-            value: "elasticuser"
       
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: kibana-service
-  namespace: stack-elk
 spec:
   type: NodePort
   selector:
