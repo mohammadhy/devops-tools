@@ -1,8 +1,3 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: stack-elk
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -20,7 +15,7 @@ spec:
     spec:
       containers:
         - name: elastic
-          image: bitnami/elasticsearch:7.17.0
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
           ports:
           - containerPort: 9200
           env:
@@ -36,17 +31,12 @@ spec:
             value: "-Xms512m -Xmx512m"
           - name: ELASTICSEARCH_URL
             value: "http://elasticsearch:9200"
-          - name: ELASTIC_USERNAME
-            value: "elastic"
-          - name: ELASTIC_PASSWORD
-            value: "elasticuser"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch
-  namespace: stack-elk
 spec:
   type: NodePort
   selector:
