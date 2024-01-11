@@ -14,3 +14,6 @@ do
       kubectl apply -f $path
   fi
 done
+echo "Apply Monitoring Cluster K8s ..."
+git clone https://github.com/devopscube/kube-state-metrics-configs.git
+kubectl apply -f kube-state-metrics-configs/
