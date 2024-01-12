@@ -17,3 +17,9 @@ done
 echo "Apply Monitoring Cluster K8s ..."
 git clone https://github.com/devopscube/kube-state-metrics-configs.git
 kubectl apply -f kube-state-metrics-configs/
+echo "Configuration Elasticsearch"
+foo=`kubectl exec elastic-deployment-0 -- ./bin/elasticsearch-service-tokens create elastic/kibana mytoken | awk '{print $4}'`
+echo $foo
+sed -i "s/mytoken/$foo/g" deployment-kibana.yaml
+kubectl delete -f deployment-kibana.yaml
+kubectl apply -f deployment-kibana.yaml
