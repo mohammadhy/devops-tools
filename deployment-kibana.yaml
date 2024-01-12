@@ -20,7 +20,8 @@ spec:
           env:
           - name: ELASTICSEARCH_URL
             value: "http://elasticsearch:9200"          
-          - name: ELASTICSEARCH_USERNAME
+          - name: ELASTICSEARCH_SERVICEACCOUNTTOKEN
+            value: "mytoken"
       
 ---
 apiVersion: v1
