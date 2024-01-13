@@ -11,3 +11,6 @@ data:
     - job_name: 'cadvisor'
       static_configs:
               - targets: ["192.168.154.141:30800"]
+    - job_name: 'kube-state'
+      static_configs:
+        - targets: ["kube-state-metrics.kube-system.svc.cluster.local:8080"]
