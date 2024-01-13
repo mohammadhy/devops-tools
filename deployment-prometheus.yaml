@@ -17,6 +17,13 @@ spec:
         image: docker.arvancloud.ir/prom/prometheus
         ports:
         - containerPort: 9090
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "256Mi"
         volumeMounts:
         - name: config
           mountPath: /etc/prometheus/prometheus.yml
