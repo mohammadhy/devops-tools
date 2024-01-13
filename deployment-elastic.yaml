@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: elastic-deployment
-  namespace: stack-elk
 spec:
   replicas: 1
   selector:
