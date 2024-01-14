@@ -24,7 +24,7 @@ spec:
             cpu: "500m"
           requests:
             memory: "256Mi"
-            cpu: "256Mi"  
+            cpu: "256m"  
         volumeMounts:
         - name: docker
           mountPath: /var/lib/docker
