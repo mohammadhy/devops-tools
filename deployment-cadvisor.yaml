@@ -14,7 +14,8 @@ spec:
       nodeName: workstation
       containers:
       - name: cadviser
-        image: gcr.io/cadvisor/cadvisor:latest
+        #image: gcr.io/cadvisor/cadvisor:latest
+        image: 192.168.154.128:5000/cadvisor
         ports:
         - containerPort: 8080
         resources:
