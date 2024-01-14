@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: elastic
-          image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+          #image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+          image: 192.168.154.128:5000/elastic
           ports:
           - containerPort: 9200
           env:
