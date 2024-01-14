@@ -13,7 +13,8 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana
+        #image: grafana/grafana
+        image: 192.168.154.128:5000/grafana
         ports:
         - containerPort: 3000
 ---
