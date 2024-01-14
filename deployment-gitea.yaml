@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: gitea/gitea:1.21.2
+          #image: gitea/gitea:1.21.2
+          image: 192.168.154.128:5000/gitea
           env:
             - name: GITEA__database__HOST
               value: mysql-service:3306
