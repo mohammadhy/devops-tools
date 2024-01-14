@@ -11,10 +11,10 @@ spec:
       labels:
         app: sonarqube
     spec:
-      nodeName: workstation
       containers:
       - name: sonarqube
-        image: sonarqube
+        #image: sonarqube
+        image: 192.168.154.128:5000/sonarqube
         ports:
         - containerPort: 9000
         resources:
