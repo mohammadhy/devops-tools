@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: registry
-          image: registry:2
+          #image: registry:2
+          image: 192.168.154.128:5000/registry
           ports:
           - containerPort: 5000
 ---
