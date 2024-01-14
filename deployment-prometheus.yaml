@@ -14,7 +14,8 @@ spec:
       nodeName: workstation
       containers:
       - name: prometheus
-        image: docker.arvancloud.ir/prom/prometheus
+        #image: docker.arvancloud.ir/prom/prometheus
+        image: 192.168.154.128:5000/prometheus
         ports:
         - containerPort: 9090
         resources:
