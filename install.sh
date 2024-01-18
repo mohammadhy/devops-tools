@@ -23,3 +23,4 @@ echo $foo
 sed -i "s/mytoken/$foo/g" deployment-kibana.yaml
 kubectl delete -f deployment-kibana.yaml
 kubectl apply -f deployment-kibana.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
