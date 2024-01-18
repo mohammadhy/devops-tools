@@ -1,7 +1,9 @@
 #! /bin/bash
 cd /tmp/manifest
-echo "Install Keyverno For Policy"
+echo "Install Keyverno For Policy:"
 kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.10.0/install.yaml
+echo "Install Metallb:"
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
 for m in $(ls)
 do
   #echo $m
@@ -23,4 +25,3 @@ echo $foo
 sed -i "s/mytoken/$foo/g" deployment-kibana.yaml
 kubectl delete -f deployment-kibana.yaml
 kubectl apply -f deployment-kibana.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
