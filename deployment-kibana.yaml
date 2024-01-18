@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kibana-service
+  name: service-kibana
 spec:
   type: NodePort
   selector:
