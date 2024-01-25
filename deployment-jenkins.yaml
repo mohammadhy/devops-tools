@@ -26,6 +26,12 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "256m"
+          volumeMounts:
+          - name: data
+            montPath: /var/jenkins_home
+      volumes:
+      - name: data
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
