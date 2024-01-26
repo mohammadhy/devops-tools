@@ -4,6 +4,8 @@ echo "Install Keyverno For Policy:"
 kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.10.0/install.yaml
 echo "Install Metallb:"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
+echo "Install Nginx-Ingress"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
 for m in $(ls)
 do
   #echo $m
