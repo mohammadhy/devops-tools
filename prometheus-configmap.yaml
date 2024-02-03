@@ -3,14 +3,46 @@ kind: ConfigMap
 metadata:
   name: configmap-prometheus
 data:
+  alertmanager.yml: |
+    route:
+      receiver: 'slack'
+    receivers:
+    - name: 'slack'
+      slack_configs:
+      - send_resolved: true
+        text: "{{ .CommonAnnotations.description }}"
+        username: "home_kubernetes"
+        channel: "alerting"
+        api_url: "https://hooks.slack.com/services/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"
+
+  alert.rules: |
+    groups:
+    - name: targets
+      rules:
+      - alert: monitor_service_down
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Monitor service"
+          description: "Service {{ $labels.instance }} is down"
   prometheus.yml: |
     global:
       scrape_interval: 15s
       evaluation_interval: 15s
+    rule_files:
+    - "alert.rules"
+    alerting:
+      alertmanagers:
+      - scheme: http
+        static_configs:
+        - targets: ['alertmanagers-service.default.svc.cluster.local:9093']
+
     scrape_configs:
     - job_name: 'cadvisor'
       static_configs:
-              - targets: ["192.168.154.141:30800"]
-    - job_name: 'kube-state'
+      - targets: ["192.168.88.143:30800"]
+    - job_name: 'kube_metrics'
       static_configs:
-        - targets: ["kube-state-metrics.kube-system.svc.cluster.local:8080"]
+      - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
