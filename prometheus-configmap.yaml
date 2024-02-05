@@ -26,7 +26,7 @@ data:
           severity: critical
         annotations:
           summary: "Monitor service"
-          description: "Service {{ $labels.instance }} is down"
+          description: "Service {{ $labels.job }} is down"
   prometheus.yml: |
     global:
       scrape_interval: 15s
