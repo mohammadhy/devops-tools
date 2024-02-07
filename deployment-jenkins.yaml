@@ -28,7 +28,7 @@ spec:
               cpu: "500m"
           volumeMounts:
           - name: data
-            montPath: /var/jenkins_home
+            mountPath: /var/jenkins_home
       volumes:
       - name: data
         emptyDir: {}
