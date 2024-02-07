@@ -35,13 +35,13 @@ spec:
             value: "elastic"
           - name: ELASTIC_PASSWORD
             value: "asus1650"
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-          requests:
-            memory: "256Mi"
-            cpu: "256m"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "256m"
 ---
 apiVersion: v1
 kind: Service
