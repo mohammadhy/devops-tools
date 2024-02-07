@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert
+spec:
+  selector:
+    matchLabels:
+      app: alert
+  template:
+    metadata:
+      labels:
+        app: alert
+    spec:
+      containers:
+      - name: alert
+        image: prom/alertmanager
+        ports:
+        - containerPort: 9093
+        volumeMounts:
+        - name: alert-config
+          mountPath: /etc/alertmanager/alertmanager.yml
+          subPath: "alertmanager.yml"
+      volumes:
+      - name: alert-config
+        configMap:
+          name: configmap-prometheus
+          items:
+          - key: alertmanager.yml
+            path: alertmanager.yml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanagers-service
+spec:
+  type: NodePort
+  selector:
+    app: alert
+  ports:
+  - name: alert-port
+    port: 9093
+    nodePort: 30903
