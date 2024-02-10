@@ -36,6 +36,15 @@ data:
         annotations:
           summary: "Container killed (instance {{ $labels.instance }})"
           description: "A container has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: KubernetesNodeMemoryPressure
+        expr: kube_node_status_condition{condition="MemoryPressure",status="true"} == 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Kubernetes Node memory pressure (instance {{ $labels.instance }})
+          description: "Node {{ $labels.node }} has MemoryPressure condition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
   prometheus.yml: |
     global:
       scrape_interval: 15s
