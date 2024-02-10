@@ -13,7 +13,7 @@ data:
         text: "{{ .CommonAnnotations.description }}"
         username: "home_kubernetes"
         channel: "alerting"
-        api_url: "https://hooks.slack.com/services/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"
+        api_url: "Your API"
 
   alert.rules: |
     groups:
