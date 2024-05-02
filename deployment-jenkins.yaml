@@ -15,10 +15,15 @@ spec:
       containers:
         - name: jenkins
           #image: jenkins/jenkins:lts
-          image: 192.168.154.128:5000/jenkins
+          image: 192.168.154.128:5000/jenkins-custom:1.0.0
           ports:
             - name: httpport
               containerPort: 8080
+          env:
+            - name: DOCKER_HOST
+              value: tcp://service-docker.default:2376
+            - name: DOCKER_TLS_VERIFY
+              value: "1"
           resources:
             limits:
               memory: "2000Mi"
@@ -27,11 +32,17 @@ spec:
               memory: "500Mi"
               cpu: "500m"
           volumeMounts:
-          - name: data
+          - name: jenkins-data
             mountPath: /var/jenkins_home
+          - name: docker-client-certs
+            mountPath: /var/jenkins_home/.docker
+
       volumes:
-      - name: data
+      - name: jenkins-data
         emptyDir: {}
+      - name: docker-client-certs
+        persistentVolumeClaim:
+          claimName: docker-jenkins-key
 ---
 apiVersion: v1
 kind: Service
@@ -42,5 +53,7 @@ spec:
   selector:
     app: jenkins-server
   ports:
-  - port: 8080
+  - name: httpport
+    port: 8080
+    targetPort: httpport
     nodePort: 30808
