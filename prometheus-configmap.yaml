@@ -27,7 +27,14 @@ data:
         annotations:
           summary: "Monitor service"
           description: "Service {{ $labels.job }} is down"
-      
+      - alert: Pod restart
+        expr: sum(kube_pod_container_status_restarts_total) by (pod) > 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "pod reset"
+          description: "pod reset"
       - alert: containerkilled
         expr: time() - container_last_seen > 10
         for: 0m
