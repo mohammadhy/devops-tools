@@ -41,7 +41,8 @@ spec:
 
       volumes:
       - name: jenkins-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: jenkins-data
       - name: docker-client-certs
         persistentVolumeClaim:
           claimName: docker-jenkins-key
