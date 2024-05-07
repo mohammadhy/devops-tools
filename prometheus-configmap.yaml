@@ -34,7 +34,7 @@ data:
           severity: critical
         annotations:
           summary: "pod reset"
-          description: "pod reset"
+          description: "{{ $labels.pod }}"
       - alert: containerkilled
         expr: time() - container_last_seen > 10
         for: 0m
