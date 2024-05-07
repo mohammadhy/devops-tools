@@ -32,7 +32,8 @@ spec:
             mountPath: /certs/client
       volumes:
       - name: jenkins-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: jenkins-data
       - name: certs
         emptyDir: {}
       - name: docker-data
