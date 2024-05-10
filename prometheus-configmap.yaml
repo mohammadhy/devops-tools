@@ -52,6 +52,14 @@ data:
         annotations:
           summary: Kubernetes Node memory pressure (instance {{ $labels.instance }})
           description: "Node {{ $labels.node }} has MemoryPressure condition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: MysqlDown
+        expr: mysql_up == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: MySQL down (instance {{ $labels.instance }})
+          description: "MySQL instance is down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
   prometheus.yml: |
     global:
       scrape_interval: 15s
@@ -67,7 +75,7 @@ data:
     scrape_configs:
     - job_name: 'cadvisor'
       static_configs:
-      - targets: ["192.168.88.143:30800"]
+      - targets: ["service-cadviser.default.svc.cluster.local:8080"]
     - job_name: 'kube_metrics'
       static_configs:
       - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
